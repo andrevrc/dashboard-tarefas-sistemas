@@ -6,7 +6,7 @@ import { HomeIcon,
 
 export default function Menu() {
     return (
-        <nav className="h-screen flex flex-col bg-background-menu gap-6 p-6">
+        <nav className="h-vw w-1/5 flex flex-col bg-background-menu gap-6 p-6">
             <div className="px-4 py-6">
                 <span className="place-content-center text-3xl text-gray-100 font-bold">
                     Tarefas GAS

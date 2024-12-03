@@ -18,7 +18,11 @@ const config: Config = {
           600: '#2F6FEB',
         },
         "background-menu": "#212B36",
-        "background-purple": "#624BFF"
+        "background-purple": "#624BFF",
+        "urgente":"#DC3545",
+        "alta": "#F59E0B",
+        "medium":"#624BFF",
+        "baixa": "#28A745"
       },
     },
     keyframes: {

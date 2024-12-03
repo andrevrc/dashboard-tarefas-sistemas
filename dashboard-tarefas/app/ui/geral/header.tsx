@@ -2,11 +2,11 @@ import { BellAlertIcon } from "@heroicons/react/24/outline";
 
 export default function Header() {
     return (
-        <div className="flex-grow flex flex-col">
-            <div className="flex flex-row justify-between p-10 text-2xl">
+        <div className="flex flex-col">
+            <div className="flex flex-row justify-between items-center p-10 text-2xl">
                 <span className="font-bold">Bem vindo!</span>
-                <div className="flex flex-row">
-                    <BellAlertIcon />
+                <div className="flex flex-row gap-6">
+                    <BellAlertIcon className="w-10" />
                     <span className="rounded-full border-2 p-6 bg-gray-400"></span>
                 </div>
             </div>

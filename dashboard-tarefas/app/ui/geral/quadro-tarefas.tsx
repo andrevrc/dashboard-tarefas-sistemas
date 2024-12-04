@@ -1,4 +1,6 @@
-export default function QuadroTarefas() {
+import { Tarefa } from "@/app/lib/tipos-dados";
+
+export default function QuadroTarefas({ tarefas } :{tarefas?: Array<Tarefa>}) {
     return (
         <div className="m-32 grid grid-cols-5 border-1 bg-white rounded-2xl">
             {/* Título da Tabela */}

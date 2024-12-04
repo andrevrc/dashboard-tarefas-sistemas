@@ -1,0 +1,44 @@
+34 - Geral
+40 - Ações Integradas
+35 - Administração dos Sistemas
+36 - Ambiente Virtual
+128 - Área Pública
+46 - Assistencia ao Estudante
+58 - Avaliação Institucional
+41 - Biblioteca
+47 - Central de Estágios
+125 - CPDI
+64 - Diplomas
+59 - Ensino em Rede
+65 - Ensino a Distância
+42 - Extensão
+127 - Formação Complementar
+48 - Fundamental
+66 - Graduação
+50 - Integrado
+49 - Infantil
+60 - Lato sensu
+43 - Monitoria
+52 - Metrópole Digital
+51 - Médio
+53 - NEE
+54 - Ouvidoria
+44 - Pesquisa
+37 - Portal do Discente
+57 - Programa de Atualização Pedagógica
+38 - Portal do Docente
+61 - Portal da Coordenação Lato Sensu
+63 - Processo Seletivo
+45 - Produção Intelectual
+68 - Portal Coord. Stricto Sensu
+67 - Portal da Coordenação de Graduação
+230 - Portal da Reitoria
+62 - Residências em Saúde
+69 - Stricto sensu
+55 - SRI
+129 - Portal do Familiar
+56 - Técnico
+39 - Turma Virtual
+391 - Desktop
+1675 - Portal do Tutor
+1761 - Portal do Professor Mediador

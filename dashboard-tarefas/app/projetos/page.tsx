@@ -29,7 +29,7 @@ export default async function Page() {
         qtdProjetos: qtdProjetos,
         qtdTarefasAbertas: qtdTarefasAbertas,
         qtdTarefasFinalizadas: qtdTarefasFechadas,
-        qtdUnidades: 0,
+        qtdModulos: 0,
         qtdProjetosCadastrados: 0
     }
 

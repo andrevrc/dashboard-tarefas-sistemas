@@ -8,8 +8,12 @@ export type Projeto = {
 }
 
 export type Modulo = {
+    id?: string;
     idRedmine: number;
     nomeModulo: string;
+    descricao?: string;
+    qtdTarefasAbertas?: number;
+    qtdTarefasFechadas?: number;
 }
 
 export type Tarefa = {
@@ -36,5 +40,6 @@ export type infoTelaInicial = {
     qtdTarefasAbertas: number;
     qtdTarefasFinalizadas: number;
     qtdProjetosCadastrados: number;
-    qtdUnidades: number;
+    qtdModulos: number;
+    desc?: string;
 }

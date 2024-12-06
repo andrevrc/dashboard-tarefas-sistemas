@@ -36,6 +36,18 @@ export async function getTarefasFinalizadas(idProjeto: number | null) {
     return dados_tarefas;
 }
 
+export async function getTarefasByModulos(idModulo: number) {
+    let params = "limit=5&cf_25="+idModulo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
+export async function getTarefasFinalizadasByModulos(idModulo: number) {
+    let params = "limit=5&status_id=14&cf_25="+idModulo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
 export async function getProjetos() {
     const url = `${process.env.REDMINE_API_URL_BASE}`+"/projects.json";
     const dados_consulta_projetos = await fetch(url, {

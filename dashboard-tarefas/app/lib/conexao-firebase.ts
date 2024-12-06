@@ -21,6 +21,10 @@ function getUrlModulosObservados() {
     return getUrlBase() + "/modulos.json";
 }
 
+function getUrlDeletePutModulos() {
+    return getUrlBase() + "/modulos/";
+}
+
 function getUrlVisualizacao() {
     return getUrlBase() + "/visualizacao.json";
 }
@@ -156,7 +160,7 @@ export async function updateProject(projeto: Projeto) {
 export async function postModulos(modulo : Modulo) {
     let sucesso = false;
 
-    fetch(getUrlModulosObservados(), {
+    await fetch(getUrlModulosObservados(), {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=UTF-8"
@@ -175,6 +179,94 @@ export async function postModulos(modulo : Modulo) {
 
     return sucesso;
 }
+
+export async function getModulos() {
+    let modulos : Object[] = [{}];
+    let mod : Modulo[] = [];
+
+    let urlGetModulos = montarGetUrlParams({url: getUrlModulosObservados(), params: ""});
+
+    await fetch(urlGetModulos)
+            .then(async (resultado) => await resultado.json())
+            .then((json) => {
+                modulos = json;
+            })
+            .catch((erro) => console.log(erro));
+    
+    if (modulos !== null) { 
+        Object.values(modulos).map((m: any, k: any, arr: any) => {
+            console.log(m);
+
+            let modulo : Modulo = {
+                id: Object.keys(modulos)[k],
+                idRedmine : Number(m["idRedmine"]),
+                descricao: m["descricao"],
+                nomeModulo: m["nomeModulo"]
+            };
+
+            mod.push(modulo);
+        });
+    }
+    
+    return mod;
+}
+
+export async function getModuloId(id: string) {
+    let modulo : Modulo = {
+        id: "",
+        idRedmine: 0,
+        descricao: "",
+        nomeModulo: ""
+    };
+
+    let urlGetModulo = getUrlDeletePutModulos() + id + ".json";
+
+    let modulos = await fetch(urlGetModulo)
+            .then(async (resultado) => await resultado.json())
+            .catch((erro) => console.log(erro));
+    
+    if (modulos !== null) { 
+        modulo = {
+            id: id,
+            idRedmine : Number(modulos["idRedmine"]),
+            descricao: modulos["descricao"],
+            nomeModulo: modulos["nomeModulo"]
+        };
+    }
+    
+    return modulo;
+}
+
+export async function deleteModulo(modulo: Modulo) {
+    let urlDeleteModulo = getUrlDeletePutModulos() + modulo.id + ".json";
+    await fetch(urlDeleteModulo, {
+        method: "DELETE"
+    });
+
+    revalidatePath('/modulos');
+    redirect('/modulos');
+}
+
+export async function updateModulo(modulo: Modulo) {
+    let urlUpdateProjetos = getUrlDeletePutModulos() + modulo.id + ".json";
+
+    await fetch(urlUpdateProjetos, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(modulo)
+    })
+    .catch((e: any) => {
+        console.log(e);
+        return false;
+    });
+
+    return true;
+}
+
+
+// -------------------------------------------------------------
 
 export async function postStatus(status : Status) {
     let sucesso = false;

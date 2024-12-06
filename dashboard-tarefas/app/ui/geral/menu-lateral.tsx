@@ -46,7 +46,7 @@ export default function Menu(
 
                 <li>
                     <Link
-                        href="/"
+                        href="/modulos"
                         className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
                             "bg-gray-100 text-gray-700" : opcaoMenu === "modulos",
                             "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "modulos"
@@ -54,6 +54,19 @@ export default function Menu(
                         >
                             <FolderPlusIcon className="w-6" />
                             <span>Módulos Observados</span>
+                    </Link>
+                </li>
+                
+                <li>
+                    <Link
+                        href="/"
+                        className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
+                            "bg-gray-100 text-gray-700" : opcaoMenu === "visualizacoes",
+                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
+                        })}
+                        >
+                            <ChartBarIcon className="w-6" />
+                            <span>Tipos de Chamados</span>
                     </Link>
                 </li>
 
@@ -66,7 +79,20 @@ export default function Menu(
                         })}
                         >
                             <ChartBarIcon className="w-6" />
-                            <span>Visualizações Gerais</span>
+                            <span>Status</span>
+                    </Link>
+                </li>
+
+                <li>
+                    <Link
+                        href="/"
+                        className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
+                            "bg-gray-100 text-gray-700" : opcaoMenu === "visualizacoes",
+                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
+                        })}
+                        >
+                            <ChartBarIcon className="w-6" />
+                            <span>Filtros</span>
                     </Link>
                 </li>
             </ul>

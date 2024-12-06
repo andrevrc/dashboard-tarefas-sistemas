@@ -35,7 +35,7 @@ export default function QuadroProjetos({ projetos } :{projetos?: Array<Projeto>}
 
                         <DeleteButton projeto={projeto} />
 
-                        <Link href={`/projetos/projeto/${projeto.idRedmine}`}>
+                        <Link href={`/projetos/projeto/${projeto.id}`}>
                             <ArrowRightIcon className="w-6" />
                         </Link>
                     </div>

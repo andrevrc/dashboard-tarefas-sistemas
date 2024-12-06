@@ -10,7 +10,7 @@ import clsx from "clsx";
 
 export default function Menu(
     { opcaoMenu }: 
-    { opcaoMenu: null | "projetos" | "modulos" | "visualizacoes" }
+    { opcaoMenu: null | "projetos" | "modulos" | "filtros" | "tipos-chamados" | "status" }
 ) {
     return (
         <nav className="h-vw w-1/6 flex flex-col bg-background-menu gap-6 p-6">
@@ -62,10 +62,10 @@ export default function Menu(
                 
                 <li>
                     <Link
-                        href="/"
+                        href="/tipos-chamados"
                         className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
-                            "bg-gray-100 text-gray-700" : opcaoMenu === "visualizacoes",
-                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
+                            "bg-gray-100 text-gray-700" : opcaoMenu === "tipos-chamados",
+                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "tipos-chamados"
                         })}
                         >
                             <PencilSquareIcon className="w-6" />
@@ -77,8 +77,8 @@ export default function Menu(
                     <Link
                         href="/"
                         className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
-                            "bg-gray-100 text-gray-700" : opcaoMenu === "visualizacoes",
-                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
+                            "bg-gray-100 text-gray-700" : opcaoMenu === "status",
+                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "status"
                         })}
                         >
                             <ViewColumnsIcon className="w-6" />
@@ -90,8 +90,8 @@ export default function Menu(
                     <Link
                         href="/"
                         className={clsx("flex grow items-center gap-2 block rounded-lg px-4 py-2 text-sm font-medium text-gray-300 hover:bg-gray-100 hover:text-gray-700",{
-                            "bg-gray-100 text-gray-700" : opcaoMenu === "visualizacoes",
-                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
+                            "bg-gray-100 text-gray-700" : opcaoMenu === "filtros",
+                            "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "filtros"
                         })}
                         >
                             <AdjustmentsHorizontalIcon className="w-6" />

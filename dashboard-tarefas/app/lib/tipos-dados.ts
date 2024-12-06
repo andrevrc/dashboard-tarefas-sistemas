@@ -31,8 +31,21 @@ export type Prioridade = {
 }
 
 export type Status = {
+    id?: string;
     idRedmine: number;
     descricao: string;
+    status: string;
+    qTarefasAbertas?: number;
+    qTarefasFechadas?: number;
+}
+
+export type TipoTarefa = {
+    id?: string;
+    idRedmine: number;
+    tipo: string;
+    descricao: string;
+    qTarefasAbertas?: number;
+    qTarefasFechadas?: number;
 }
 
 export type infoTelaInicial = {
@@ -41,5 +54,7 @@ export type infoTelaInicial = {
     qtdTarefasFinalizadas: number;
     qtdProjetosCadastrados: number;
     qtdModulos: number;
+    qtdTipos?:number;
+    qtdStatus?:number;
     desc?: string;
 }

@@ -3,13 +3,15 @@ import { CheckCircleIcon, CircleStackIcon, ListBulletIcon } from "@heroicons/rea
 import { ArrowLeftIcon, BellAlertIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"}) {
+export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"|"Tipo"}) {
     return (
         <div className="flex flex-col">
             <div className="relative">
                 <div className="relative bg-background-purple pt-16 pl-10 p-24 text-3xl text-gray-200 font-bold flex flex-row justify-between p-10">
                     <p>
+                        {opcao === "Projetos" && `Visão Geral - Projetos` }
                         {opcao === "Módulos" && `Módulo de ${dados.desc} - Visão Geral` }
+                        {opcao === "Tipo" && `Visão Geral - Tipo: ${dados.desc}` }
                     </p>
 
                     <div className="p-3 bg-white font-normal text-background-purple rounded-lg hover:bg-[#F4F6F8]">
@@ -22,6 +24,12 @@ export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao
                         {opcao === "Módulos" && 
                             <Link href={"/modulos"}>    
                                 <ArrowLeftIcon className="w-6" /> 
+                            </Link>
+                        }
+
+                        {opcao === "Tipo" && 
+                            <Link href={"/tipos-chamados"}>  
+                                <ArrowLeftIcon className="w-6" />             
                             </Link>
                         }
                     </div>

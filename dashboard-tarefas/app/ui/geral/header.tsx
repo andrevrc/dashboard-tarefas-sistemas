@@ -75,7 +75,7 @@ export default function Header({dados}:{ dados: infoTelaInicial}) {
                             <FolderPlusIcon className="w-6" />
                         </div>
                         <div>
-                            <span className="text-4xl">{dados.qtdUnidades}</span>
+                            <span className="text-4xl">{dados.qtdModulos}</span>
                         </div>
                     </div>
                 </div>

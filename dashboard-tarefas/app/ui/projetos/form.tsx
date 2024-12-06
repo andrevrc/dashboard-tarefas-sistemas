@@ -18,7 +18,7 @@ export default function FormObservarProjeto({projeto_}:{projeto_?: Projeto|undef
         e.preventDefault();
 
         if ((projeto_ === null || projeto_ === undefined) 
-                && idRedmineProjeto === 0 || nomeProjeto === "" || descricaoProjeto === "") {
+                && (idRedmineProjeto === 0 || nomeProjeto === "" || descricaoProjeto === "")) {
             erro = true;
         }
 

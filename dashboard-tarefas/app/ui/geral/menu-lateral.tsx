@@ -2,7 +2,10 @@ import Link from "next/link";
 import { HomeIcon, 
         ChartBarIcon, 
         CircleStackIcon, 
-        FolderPlusIcon } from "@heroicons/react/24/outline";
+        FolderPlusIcon, 
+        AdjustmentsHorizontalIcon,
+        PencilSquareIcon,
+        ViewColumnsIcon} from "@heroicons/react/24/outline";
 import clsx from "clsx";
 
 export default function Menu(
@@ -65,7 +68,7 @@ export default function Menu(
                             "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
                         })}
                         >
-                            <ChartBarIcon className="w-6" />
+                            <PencilSquareIcon className="w-6" />
                             <span>Tipos de Chamados</span>
                     </Link>
                 </li>
@@ -78,7 +81,7 @@ export default function Menu(
                             "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
                         })}
                         >
-                            <ChartBarIcon className="w-6" />
+                            <ViewColumnsIcon className="w-6" />
                             <span>Status</span>
                     </Link>
                 </li>
@@ -91,7 +94,7 @@ export default function Menu(
                             "text-gray-300 hover:bg-gray-100 hover:text-gray-700" : opcaoMenu !== "visualizacoes"
                         })}
                         >
-                            <ChartBarIcon className="w-6" />
+                            <AdjustmentsHorizontalIcon className="w-6" />
                             <span>Filtros</span>
                     </Link>
                 </li>

@@ -1,6 +1,7 @@
 import Inicio from '@/app/ui/geral/inicio';
 import { getTarefas, getProjetos, getTarefasFinalizadas } from './lib/acesso-redmine';
-import { infoTelaInicial, Tarefa } from '@/app/lib/tipos-dados';
+import { infoTelaInicial, Projeto, Tarefa } from '@/app/lib/tipos-dados';
+import { getModulos, getProjetosId, getProjetos as getProjetosFB } from './lib/conexao-firebase';
 
 export default async function Page() {
   let tarefasAbertas = await getTarefas(null);
@@ -13,12 +14,18 @@ export default async function Page() {
   let tarefasFinalizadas = await getTarefasFinalizadas(null);
   let qtdTarefasFinalizadas = tarefasFinalizadas["total_count"];
 
+  let modulos = await getModulos();
+  let qtdModulos = modulos.length;
+  
+  let projetosFB = await getProjetosFB();
+  let qtdProjetosFB = projetosFB.length;
+
   let info: infoTelaInicial = {
     qtdProjetos: qtdProjetos,
     qtdTarefasAbertas: qtdTarefasAbertas,
     qtdTarefasFinalizadas: qtdTarefasFinalizadas,
-    qtdModulos: 0,
-    qtdProjetosCadastrados: 0
+    qtdModulos: qtdModulos,
+    qtdProjetosCadastrados: qtdProjetosFB
   }
 
   return (

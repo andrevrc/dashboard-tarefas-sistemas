@@ -1,0 +1,11 @@
+2 - Ajuste
+1 - Erros
+7 - Atualização de dados
+3 - Auditoria
+4 - Extração de dados
+9 - Defeito conhecido
+5 - Aprimoramento
+8 - Reunião
+12 - Colaboração
+14 - Ticket
+11 - Atividade

@@ -1,7 +1,7 @@
 // Usamos o Real Time Database para salvar e consultar informações.
 "use server"
 
-import { Modulo, Projeto, Status } from "@/app/lib/tipos-dados";
+import { Modulo, Projeto, Status, TipoTarefa } from "@/app/lib/tipos-dados";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -25,16 +25,20 @@ function getUrlDeletePutModulos() {
     return getUrlBase() + "/modulos/";
 }
 
-function getUrlVisualizacao() {
-    return getUrlBase() + "/visualizacao.json";
+function getUrlFiltros() {
+    return getUrlBase() + "/filtros.json";
 }
 
 function getUrlStatus() {
     return getUrlBase() + "/status.json";
 }
 
-function getUrlTipoTarefa() {
-    return getUrlBase() + "/tipo-tarefa.json";
+function getUrlTipoChamados() {
+    return getUrlBase() + "/tipo-chamados.json";
+}
+
+function getUrlDeletePutTipoChamados() {
+    return getUrlBase() + "/tipo-chamados/";
 }
 
 function montarGetUrlParams({url, params} : {url: string, params: string | string[][]}) {
@@ -265,13 +269,124 @@ export async function updateModulo(modulo: Modulo) {
     return true;
 }
 
+// -------------------------------------------------------------
+
+export async function postTiposChamados(tipo_chamado: TipoTarefa) {
+    let sucesso = false;
+
+    await fetch(getUrlTipoChamados(), {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(tipo_chamado)
+    })
+    .then(response => response.json())
+    .then(json => {
+        console.log(json);
+        sucesso = true;
+    })
+    .catch(err => {
+        console.log(err);
+        sucesso = false;
+    });
+
+    return sucesso;
+}
+
+export async function getTiposChamados() {
+    let tipoChamados : Object[] = [{}];
+    let tipo : TipoTarefa[] = [];
+
+    let urlGetTipoChamados = montarGetUrlParams({url: getUrlTipoChamados(), params: ""});
+
+    await fetch(urlGetTipoChamados)
+            .then(async (resultado) => await resultado.json())
+            .then((json) => {
+                tipoChamados = json;
+            })
+            .catch((erro) => console.log(erro));
+    
+    if (tipoChamados !== null) { 
+        Object.values(tipoChamados).map((m: any, k: any, arr: any) => {
+            console.log(m);
+
+            let t : TipoTarefa = {
+                id: Object.keys(tipoChamados)[k],
+                idRedmine : Number(m["idRedmine"]),
+                tipo: m["tipo"],
+                descricao: m["descricao"]
+            };
+
+            tipo.push(t);
+        });
+    }
+    
+    return tipo;
+}
+
+export async function getTiposChamadosId(id: string) {
+    let tipo : TipoTarefa = {
+        id: "",
+        idRedmine: 0,
+        descricao: "",
+        tipo: ""
+    };
+
+    let urlGetTipos = getUrlDeletePutTipoChamados() + id + ".json";
+
+    let tipos = await fetch(urlGetTipos)
+            .then(async (resultado) => await resultado.json())
+            .catch((erro) => console.log(erro));
+    
+    if (tipos !== null) { 
+        tipo = {
+            id: id,
+            idRedmine : Number(tipos["idRedmine"]),
+            descricao: tipos["descricao"],
+            tipo: tipos["tipo"]
+        };
+    }
+    
+    return tipo;
+}
+
+export async function deleteTiposChamados(tipo: TipoTarefa) {
+    console.log(tipo);
+    let urlDeleteTipo = getUrlDeletePutTipoChamados() + tipo.id + ".json";
+    console.log(urlDeleteTipo);
+    await fetch(urlDeleteTipo, {
+        method: "DELETE"
+    });
+
+    revalidatePath('/tipos-chamados');
+    redirect('/tipos-chamados');
+}
+
+export async function updateTiposChamados(tipo: TipoTarefa) {
+    let urlUpdateTipos = getUrlDeletePutTipoChamados() + tipo.id + ".json";
+
+    await fetch(urlUpdateTipos, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(tipo)
+    })
+    .catch((e: any) => {
+        console.log(e);
+        return false;
+    });
+
+    return true;
+}
 
 // -------------------------------------------------------------
 
 export async function postStatus(status : Status) {
     let sucesso = false;
 
-    fetch(getUrlModulosObservados(), {
+    await fetch(getUrlModulosObservados(), {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=UTF-8"

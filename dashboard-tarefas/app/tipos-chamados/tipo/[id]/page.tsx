@@ -1,18 +1,18 @@
-import { getTarefasByModulos, getTarefasFinalizadasByModulos } from "@/app/lib/acesso-redmine";
-import { getModuloId } from "@/app/lib/conexao-firebase";
-import { infoTelaInicial, Modulo } from "@/app/lib/tipos-dados";
+import { getTarefasByTipos, getTarefasFinalizadasByTipos } from "@/app/lib/acesso-redmine";
+import { getTiposChamadosId } from "@/app/lib/conexao-firebase";
+import { infoTelaInicial, Modulo, TipoTarefa } from "@/app/lib/tipos-dados";
 import { infoTarefas } from "@/app/lib/util-types";
 import InfoGeral from "@/app/ui/geral/infoGeral";
 import Menu from "@/app/ui/geral/menu-lateral";
 import QuadroTarefas from "@/app/ui/geral/quadro-tarefas";
 
-export default async function EditarModulo(props : {params: Promise<{id: string}>}) {
+export default async function ViewTipo(props : {params: Promise<{id: string}>}) {
     const params = await props.params;
     const id = params.id;
 
-    let m: Modulo = await getModuloId(id);
-    let dadosAbertas = await getTarefasByModulos(m.idRedmine);
-    let dadosFechadas = await getTarefasFinalizadasByModulos(m.idRedmine);
+    let t: TipoTarefa = await getTiposChamadosId(id);
+    let dadosAbertas = await getTarefasByTipos(t.idRedmine);
+    let dadosFechadas = await getTarefasFinalizadasByTipos(t.idRedmine);
     let tarefas = infoTarefas(dadosAbertas["issues"]);
 
     let info: infoTelaInicial = {
@@ -21,15 +21,15 @@ export default async function EditarModulo(props : {params: Promise<{id: string}
         qtdTarefasFinalizadas: dadosFechadas["total_count"],
         qtdModulos: 0,
         qtdProjetosCadastrados: 0,
-        desc: m.nomeModulo
+        desc: t.descricao
     }
 
     return (
         <main className="flex flex-row w-screen h-screen">
-            <Menu opcaoMenu={"modulos"} />
+            <Menu opcaoMenu={"tipos-chamados"} />
 
             <div className="flex-grow flex flex-col content-start w-5/6">
-                <InfoGeral opcao="Módulos" dados={info} />
+                <InfoGeral opcao="Tipo" dados={info} />
                 <QuadroTarefas tarefas={tarefas} />
             </div>
         </main>

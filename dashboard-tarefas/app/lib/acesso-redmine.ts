@@ -4,6 +4,8 @@ const headers = {
 
 async function getApiTarefasRedmine(params: string) {
     const url = `${process.env.REDMINE_API_URL_BASE}`+"/issues.json?" + params;
+
+    console.log(url);
     
     const dados_consulta_api = await fetch(url, {
         method: "GET",
@@ -44,6 +46,18 @@ export async function getTarefasByModulos(idModulo: number) {
 
 export async function getTarefasFinalizadasByModulos(idModulo: number) {
     let params = "limit=5&status_id=14&cf_25="+idModulo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
+export async function getTarefasByTipos(idTipo: number) {
+    let params = "limit=5&tracker_id="+idTipo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
+export async function getTarefasFinalizadasByTipos(idTipo: number) {
+    let params = "limit=5&status_id=14&tracker_id="+idTipo;
     let dados = await getApiTarefasRedmine(params);
     return dados;
 }

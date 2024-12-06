@@ -3,7 +3,7 @@ import { Modulo } from "@/app/lib/tipos-dados";
 import Menu from "@/app/ui/geral/menu-lateral";
 import FormNovoModulo from "@/app/ui/modulos/form";
 
-export default async function EditarProjeto(props : {params: Promise<{id: string}>}) {
+export default async function EditarModulo(props : {params: Promise<{id: string}>}) {
     const params = await props.params;
     const id = params.id;
 

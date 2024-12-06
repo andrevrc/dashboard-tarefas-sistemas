@@ -3,7 +3,7 @@ import { CheckCircleIcon, CircleStackIcon, ListBulletIcon } from "@heroicons/rea
 import { BellAlertIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"}) {
+export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"|"Tipos"|"Status"|"Filtros"}) {
     return (
         <div className="flex flex-col">
             <div className="relative">
@@ -23,6 +23,12 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                             Observar Novo Módulo            
                         </Link>
                     }
+
+                    {opcao === "Tipos" && 
+                        <Link href={"/tipos-chamados/novoTipo"}>    
+                            Cadastrar Novo Tipo
+                        </Link>
+                    }
                     </div>
                 </div>
 
@@ -37,6 +43,7 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                             <span className="text-4xl">
                                 {opcao === "Projetos" && dados.qtdProjetos}
                                 {opcao === "Módulos" && dados.qtdModulos}
+                                {opcao === "Tipos" && dados.qtdTipos}
                             </span>
                         </div>
                     </div>

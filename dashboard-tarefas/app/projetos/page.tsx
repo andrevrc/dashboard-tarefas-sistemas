@@ -37,7 +37,7 @@ export default async function Page() {
         <main className="flex flex-row w-screen h-screen">
             <Menu opcaoMenu={"projetos"} />
             <div className="flex-grow flex flex-col content-start w-5/6">
-                <InfoGeralProjetos dados={info} />
+                <InfoGeralProjetos opcao="Projetos" dados={info} />
                 <QuadroProjetos projetos={projetos} />
             </div>
             

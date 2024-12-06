@@ -13,7 +13,7 @@ export default async function Page() {
   let tarefasFinalizadas = await getTarefasFinalizadas(null);
   let qtdTarefasFinalizadas = tarefasFinalizadas["total_count"];
 
-  const info: infoTelaInicial = {
+  let info: infoTelaInicial = {
     qtdProjetos: qtdProjetos,
     qtdTarefasAbertas: qtdTarefasAbertas,
     qtdTarefasFinalizadas: qtdTarefasFinalizadas,
@@ -22,7 +22,7 @@ export default async function Page() {
   }
 
   return (
-    <Inicio dados={info} />
+    <Inicio dados={info} tarefas={lista_tarefas} />
   );
 }
 
@@ -33,8 +33,14 @@ export function infoTarefas(dados: any) {
     const tarefa: Tarefa = {
       idTarefa: task["id"],
       titulo: task["subject"],
-      prioridade: task["priority"],
-      projeto: task["project"],
+      prioridade: {
+        id: task["priority"]["id"],
+        descricao: task["priority"]["name"]
+      },
+      projeto: {
+        idRedmine: task["project"]["id"],
+        nome: task["project"]["name"]
+      },
       data: new Date(task["start_date"])
     };
 

@@ -26,7 +26,7 @@ export async function getTarefas(idProjeto: number | null) {
 }
 
 export async function getTarefasFinalizadas(idProjeto: number | null) {
-    let params = "limit=1&status_id=14"; // Padrão de 5 tarefas.
+    let params = "limit=5&status_id=14"; // Padrão de 5 tarefas.
 
     if (idProjeto !== null) {
         params += "&project_id=" + idProjeto;
@@ -44,4 +44,15 @@ export async function getProjetos() {
     });
 
     return await dados_consulta_projetos.json();
+}
+
+export async function getTarefasListaProjetos(params:string) {
+    const url = `${process.env.REDMINE_API_URL_BASE}/issues.json?project_id=1,2`;
+
+    const dados_consulta_projetos = await fetch(url, {
+        method: "GET",
+        headers: headers
+    });
+
+    return dados_consulta_projetos;
 }

@@ -6,8 +6,8 @@ import { infoTelaInicial, Tarefa } from "@/app/lib/tipos-dados";
 export default function Inicio({ dados, tarefas }:{ dados: infoTelaInicial, tarefas?: Array<Tarefa>}) {
     return(
         <main className="flex flex-row w-screen">
-            <Menu />
-            <div className="flex-grow flex flex-col">
+            <Menu opcaoMenu={null} />
+            <div className="flex-grow flex flex-col w-5/6">
                 <Header dados={dados} />
                 <QuadroTarefas tarefas={tarefas} />
             </div>

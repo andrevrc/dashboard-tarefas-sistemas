@@ -1,11 +1,15 @@
 export type Projeto = {
+    id?: string;
     idRedmine: number;
     nome: string;
+    descricao?: string;
+    qtdTarefasAbertas?: number;
+    qtdTarefasFechadas?: number;
 }
 
-export type Unidade = {
+export type Modulo = {
     idRedmine: number;
-    nomeUnidade: string;
+    nomeModulo: string;
 }
 
 export type Tarefa = {
@@ -19,6 +23,12 @@ export type Tarefa = {
 export type Prioridade = {
     id: number;
     descricao: string;
+    observacao?: string;
+}
+
+export type Status = {
+    idRedmine: number;
+    descricao: string;
 }
 
 export type infoTelaInicial = {
@@ -27,4 +37,4 @@ export type infoTelaInicial = {
     qtdTarefasFinalizadas: number;
     qtdProjetosCadastrados: number;
     qtdUnidades: number;
-  }
+}

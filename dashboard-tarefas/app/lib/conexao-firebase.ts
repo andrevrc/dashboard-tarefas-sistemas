@@ -1,7 +1,7 @@
 // Usamos o Real Time Database para salvar e consultar informações.
 "use server"
 
-import { Modulo, Projeto, Status, TipoTarefa } from "@/app/lib/tipos-dados";
+import { filtro, Modulo, Projeto, Status, TipoTarefa } from "@/app/lib/tipos-dados";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
@@ -27,6 +27,10 @@ function getUrlDeletePutModulos() {
 
 function getUrlFiltros() {
     return getUrlBase() + "/filtros.json";
+}
+
+function getUrlDeletePutFiltros() {
+    return getUrlBase() + "/filtros/";
 }
 
 function getUrlStatus() {
@@ -487,6 +491,122 @@ export async function updateStatus(status: Status) {
             "Content-type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify(status)
+    })
+    .catch((e: any) => {
+        console.log(e);
+        return false;
+    });
+
+    return true;
+}
+
+// -------------------------------------------------------------------------
+
+export async function postFiltro(filtro: filtro) {
+    let sucesso = false;
+
+    await fetch(getUrlFiltros(), {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json;charset=UTF-8"
+        },
+        body: JSON.stringify(filtro)
+    })
+    .then(response => response.json())
+    .then(json => {
+        console.log(json);
+        sucesso = true;
+    })
+    .catch(err => {
+        console.log(err);
+        sucesso = false;
+    });
+
+    return sucesso;
+}
+
+export async function getFiltros() {
+    let filtros : Object[] = [{}];
+    let filtro : filtro[] = [];
+
+    let urlGetFiltros = montarGetUrlParams({url: getUrlFiltros(), params: ""});
+
+    await fetch(urlGetFiltros)
+            .then(async (resultado) => await resultado.json())
+            .then((json) => {
+                filtros = json;
+            })
+            .catch((erro) => console.log(erro));
+    
+    if (filtros !== null) { 
+        Object.values(filtros).map((m: any, k: any, arr: any) => {
+            console.log(m);
+
+            let t : filtro = {
+                id: Object.keys(filtros)[k],
+                nomeFiltro : m["nomeFiltro"],
+                tipoTarefa: Number(m["tipoTarefa"]),
+                status: m["status"],
+                modulo: m["modulo"],
+                desc: m["desc"]
+            };
+
+            filtro.push(t);
+        });
+    }
+    
+    return filtro;
+}
+
+export async function getFiltrosId(id: string) {
+    let filtro : filtro = {
+        id: "",
+        nomeFiltro : "",
+        tipoTarefa: 0,
+        status: 0,
+        modulo: 0
+    };
+
+    let urlGetFiltro = getUrlDeletePutFiltros() + id + ".json";
+
+    let filtros = await fetch(urlGetFiltro)
+            .then(async (resultado) => await resultado.json())
+            .catch((erro) => console.log(erro));
+    
+    if (filtros !== null) { 
+        filtro = {
+            id: id,
+            nomeFiltro : filtros["nomeFiltro"],
+            tipoTarefa: Number(filtros["tipoTarefa"]),
+            status: filtros["status"],
+            modulo: filtros["modulo"],
+            desc: filtros["desc"]
+        };
+    }
+    
+    return filtro;
+}
+
+export async function deleteFiltros(filtro: filtro) {
+    
+    let urlDeleteFiltro = getUrlDeletePutFiltros() + filtro.id + ".json";
+    await fetch(urlDeleteFiltro, {
+        method: "DELETE"
+    });
+
+    revalidatePath('/filtros');
+    redirect('/filtros');
+}
+
+export async function updateFiltros(filtro: filtro) {
+    let urlUpdateFiltros = getUrlDeletePutFiltros() + filtro.id + ".json";
+
+    await fetch(urlUpdateFiltros, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(filtro)
     })
     .catch((e: any) => {
         console.log(e);

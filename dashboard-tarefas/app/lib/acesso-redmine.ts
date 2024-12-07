@@ -1,3 +1,5 @@
+import { filtro } from "./tipos-dados";
+
 const headers = {
     "X-Redmine-API-Key":`${process.env.X_API_KEY_REDMINE}`
 }
@@ -52,6 +54,25 @@ export async function getTarefasFinalizadasByModulos(idModulo: number) {
 
 export async function getTarefasByStatus(idTipo: number) {
     let params = "status_id="+idTipo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
+export async function getTarefasByFiltros(filtro: filtro) {
+    let params = ""; //"status_id="+idTipo;
+
+    if (filtro?.tipoTarefa !== 0 || filtro?.tipoTarefa !== null || filtro?.tipoTarefa !== undefined) {
+        params += "tracker_id="+filtro?.tipoTarefa+"&";
+    }
+
+    if (filtro?.status !== 0 || filtro?.status !== null || filtro?.status !== undefined) {
+        params += "status_id="+filtro?.status+"&";
+    }
+
+    if (filtro?.modulo !== 0 || filtro?.modulo !== null || filtro?.modulo !== undefined) {
+        params += "cf_25="+filtro?.modulo;
+    }
+
     let dados = await getApiTarefasRedmine(params);
     return dados;
 }

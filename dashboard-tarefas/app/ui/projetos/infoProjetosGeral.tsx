@@ -35,6 +35,12 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                             Cadastrar Novo Status
                         </Link>
                     }
+
+                    {opcao === "Filtros" && 
+                        <Link href={"/filtros/novoFiltro"}>    
+                            Cadastrar Novo Filtro
+                        </Link>
+                    }
                     </div>
                 </div>
 
@@ -51,6 +57,7 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                                 {opcao === "Módulos" && dados.qtdModulos}
                                 {opcao === "Tipos" && dados.qtdTipos}
                                 {opcao === "Status" && dados.qtdStatus}
+                                {opcao === "Filtros" && dados.qtdFiltros}
                             </span>
                         </div>
                     </div>
@@ -58,7 +65,10 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                     {(opcao === "Status") && 
                         <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
                             <div className="flex flex-row gap-4 justify-between">
-                                <span>Tarefas nos status observados</span>
+                                {(opcao === "Status") && 
+                                    <span>Tarefas nos status observados</span>
+                                }
+                                
                                 <ListBulletIcon className="w-6" />
                             </div>
                             <div>
@@ -67,7 +77,7 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                         </div>
                     }
 
-                    {(opcao !== "Status") && 
+                    {(opcao !== "Status" && opcao !== "Filtros") && 
                         <>
                         <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
                             <div className="flex flex-row gap-4 justify-between">

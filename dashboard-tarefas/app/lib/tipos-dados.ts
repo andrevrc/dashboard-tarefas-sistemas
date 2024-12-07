@@ -56,5 +56,16 @@ export type infoTelaInicial = {
     qtdModulos: number;
     qtdTipos?:number;
     qtdStatus?:number;
+    qtdFiltros?:number;
+    desc?: string;
+}
+
+export type filtro = {
+    id?: string;
+    nomeFiltro: string;
+    tipoTarefa?: number;
+    status?: number;
+    modulo?: number;
+    qTarefas?: number;
     desc?: string;
 }

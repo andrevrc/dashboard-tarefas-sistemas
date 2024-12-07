@@ -33,6 +33,10 @@ function getUrlStatus() {
     return getUrlBase() + "/status.json";
 }
 
+function getUrlDeletePutStatus() {
+    return getUrlBase() + "/status/";
+}
+
 function getUrlTipoChamados() {
     return getUrlBase() + "/tipo-chamados.json";
 }
@@ -386,7 +390,7 @@ export async function updateTiposChamados(tipo: TipoTarefa) {
 export async function postStatus(status : Status) {
     let sucesso = false;
 
-    await fetch(getUrlModulosObservados(), {
+    await fetch(getUrlStatus(), {
         method: "POST",
         headers: {
             "Content-type": "application/json;charset=UTF-8"
@@ -404,4 +408,90 @@ export async function postStatus(status : Status) {
     });
 
     return sucesso;
+}
+
+export async function getStatus() {
+    let status : Object[] = [{}];
+    let tipo : Status[] = [];
+
+    let urlGetStatus = montarGetUrlParams({url: getUrlStatus(), params: ""});
+
+    await fetch(urlGetStatus)
+            .then(async (resultado) => await resultado.json())
+            .then((json) => {
+                status = json;
+            })
+            .catch((erro) => console.log(erro));
+    
+    if (status !== null) { 
+        Object.values(status).map((m: any, k: any, arr: any) => {
+            console.log(m);
+
+            let t : Status = {
+                id: Object.keys(status)[k],
+                idRedmine : Number(m["idRedmine"]),
+                status: m["status"],
+                descricao: m["descricao"]
+            };
+
+            tipo.push(t);
+        });
+    }
+    
+    return tipo;
+}
+
+export async function getStatusId(id: string) {
+    let status : Status = {
+        id: "",
+        idRedmine: 0,
+        descricao: "",
+        status: ""
+    };
+
+    let urlGetStatus = getUrlDeletePutStatus() + id + ".json";
+
+    let status_ = await fetch(urlGetStatus)
+            .then(async (resultado) => await resultado.json())
+            .catch((erro) => console.log(erro));
+    
+    if (status_ !== null) { 
+        status = {
+            id: id,
+            idRedmine : Number(status_["idRedmine"]),
+            descricao: status_["descricao"],
+            status: status_["status"]
+        };
+    }
+    
+    return status;
+}
+
+export async function deleteStatus(status: Status) {
+    let urlDeleteStatus = getUrlDeletePutStatus() + status.id + ".json";
+    
+    await fetch(urlDeleteStatus, {
+        method: "DELETE"
+    });
+
+    revalidatePath('/status');
+    redirect('/status');
+}
+
+export async function updateStatus(status: Status) {
+    let urlUpdateStatus = getUrlDeletePutStatus() + status.id + ".json";
+
+    await fetch(urlUpdateStatus, {
+        method: "PUT",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(status)
+    })
+    .catch((e: any) => {
+        console.log(e);
+        return false;
+    });
+
+    return true;
 }

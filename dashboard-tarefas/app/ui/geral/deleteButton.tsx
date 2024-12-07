@@ -1,10 +1,10 @@
-import { deleteTiposChamados } from "@/app/lib/conexao-firebase";
+import { deleteStatus, deleteTiposChamados } from "@/app/lib/conexao-firebase";
 import { Status, TipoTarefa } from "@/app/lib/tipos-dados";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 export function DeleteButton({ tipo, entidade }: { tipo: "Tipo"|"Status"|"Filtro", entidade: TipoTarefa | Status }) {
     const handleDeleteButtonTipo = deleteTiposChamados.bind(null, entidade as TipoTarefa);
-    //const handleDeleteButtonStatus = deleteTiposChamados.bind(null, entidade as TipoTarefa);
+    const handleDeleteButtonStatus = deleteStatus.bind(null, entidade as Status);
     //const handleDeleteButtonView = deleteTiposChamados.bind(null, entidade as TipoTarefa);
 
     return (
@@ -18,7 +18,7 @@ export function DeleteButton({ tipo, entidade }: { tipo: "Tipo"|"Status"|"Filtro
             }
 
             {(tipo === "Status") && 
-                (<form action={handleDeleteButtonTipo}>
+                (<form action={handleDeleteButtonStatus}>
                     <button type="submit">
                         <XMarkIcon className="w-6" />
                     </button>

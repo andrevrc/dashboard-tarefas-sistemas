@@ -29,6 +29,12 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                             Cadastrar Novo Tipo
                         </Link>
                     }
+
+                    {opcao === "Status" && 
+                        <Link href={"/status/novoStatus"}>    
+                            Cadastrar Novo Status
+                        </Link>
+                    }
                     </div>
                 </div>
 
@@ -44,29 +50,46 @@ export default function InfoGeralProjetos({dados, opcao}:{ dados: infoTelaInicia
                                 {opcao === "Projetos" && dados.qtdProjetos}
                                 {opcao === "Módulos" && dados.qtdModulos}
                                 {opcao === "Tipos" && dados.qtdTipos}
+                                {opcao === "Status" && dados.qtdStatus}
                             </span>
                         </div>
                     </div>
 
-                    <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
-                        <div className="flex flex-row gap-4 justify-between">
-                            <span>Tarefas Abertas</span>
-                            <ListBulletIcon className="w-6" />
+                    {(opcao === "Status") && 
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Tarefas nos status observados</span>
+                                <ListBulletIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
-                        </div>
-                    </div>
+                    }
 
-                    <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
-                        <div className="flex flex-row gap-4 justify-between">
-                            <span>Tarefas Finalizadas</span>
-                            <CheckCircleIcon className="w-6" />
+                    {(opcao !== "Status") && 
+                        <>
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Tarefas Abertas</span>
+                                <ListBulletIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span className="text-4xl">{dados.qtdTarefasFinalizadas}</span>
+
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Tarefas Finalizadas</span>
+                                <CheckCircleIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasFinalizadas}</span>
+                            </div>
                         </div>
-                    </div>
+                        </>
+                    }
                 </div>
             </div>
         </div>

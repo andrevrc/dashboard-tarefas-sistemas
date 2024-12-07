@@ -26,8 +26,17 @@ export default function Quadro({
                     {tipo === "Tipo" && "Tipos"}
                     {tipo === "Status" && "Status"}
                 </div>
-                <div>Tarefas Abertas</div>
-                <div>Tarefas Fechadas</div>
+
+                {(tipo === "Status") && 
+                    <div className="col-span-2">Quantidade de Tarefas</div>
+                }
+
+                {(tipo !== "Status") && 
+                    <>
+                    <div>Tarefas Abertas</div>
+                    <div>Tarefas Fechadas</div>
+                    </>
+                }
                 <div>Opções</div>
             </div>
 
@@ -38,10 +47,21 @@ export default function Quadro({
                         {(tipo === "Tipo") && (entidade as TipoTarefa).tipo}
                         {(tipo === "Status") && (entidade as Status).status}
                     </div>
-                    <div className="text-center">{entidade.qTarefasAbertas}</div>
-                    <div>
-                        <span className={clsx("px-6 py-2 text-black rounded-xl")}>{entidade.qTarefasFechadas}</span>
-                    </div>
+
+                    {(tipo === "Status") &&
+                        <div className="text-center col-span-2">{entidade.qTarefasAbertas}</div>
+                    }
+
+                    {(tipo !== "Status") &&
+                        <>
+                        <div className="text-center">{entidade.qTarefasAbertas}</div>
+                        <div>
+                            <span className={clsx("px-6 py-2 text-black rounded-xl")}>{entidade.qTarefasFechadas}</span>
+                        </div>
+                        </>
+                    }
+
+                    
                     <div className="flex flex-row justify-center gap-10">
                         {(tipo === "Tipo") &&
                             <Link href={`/tipos-chamados/${entidade.id}/editar`}>

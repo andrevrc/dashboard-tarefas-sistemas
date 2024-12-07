@@ -3,7 +3,7 @@ import { CheckCircleIcon, CircleStackIcon, ListBulletIcon } from "@heroicons/rea
 import { ArrowLeftIcon, BellAlertIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"|"Tipo"}) {
+export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao?: "Projetos"|"Módulos"|"Tipo"|"Status"}) {
     return (
         <div className="flex flex-col">
             <div className="relative">
@@ -12,6 +12,7 @@ export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao
                         {opcao === "Projetos" && `Visão Geral - Projetos` }
                         {opcao === "Módulos" && `Módulo de ${dados.desc} - Visão Geral` }
                         {opcao === "Tipo" && `Visão Geral - Tipo: ${dados.desc}` }
+                        {opcao === "Status" && `Visão Geral - Tarefas: ${dados.desc}` }
                     </p>
 
                     <div className="p-3 bg-white font-normal text-background-purple rounded-lg hover:bg-[#F4F6F8]">
@@ -32,6 +33,12 @@ export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao
                                 <ArrowLeftIcon className="w-6" />             
                             </Link>
                         }
+
+                        {opcao === "Status" && 
+                            <Link href={"/status"}>  
+                                <ArrowLeftIcon className="w-6" />             
+                            </Link>
+                        }
                     </div>
                 </div>
 
@@ -49,26 +56,41 @@ export default function InfoGeral({dados, opcao}:{ dados: infoTelaInicial, opcao
                             </span>
                         </div>
                     </div> */}
+                    {(opcao === "Status") && 
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Quantidade de Tarefas</span>
+                                <ListBulletIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
+                            </div>
+                        </div>
+                    }
 
-                    <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
-                        <div className="flex flex-row gap-4 justify-between">
-                            <span>Tarefas Abertas</span>
-                            <ListBulletIcon className="w-6" />
+                    {(opcao !== "Status") &&
+                        <>
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Tarefas Abertas</span>
+                                <ListBulletIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span className="text-4xl">{dados.qtdTarefasAbertas}</span>
-                        </div>
-                    </div>
 
-                    <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
-                        <div className="flex flex-row gap-4 justify-between">
-                            <span>Tarefas Finalizadas</span>
-                            <CheckCircleIcon className="w-6" />
+                        <div className="flex flex-col gap-6 bg-white rounded-lg py-10 px-6 w-1/4">
+                            <div className="flex flex-row gap-4 justify-between">
+                                <span>Tarefas Finalizadas</span>
+                                <CheckCircleIcon className="w-6" />
+                            </div>
+                            <div>
+                                <span className="text-4xl">{dados.qtdTarefasFinalizadas}</span>
+                            </div>
                         </div>
-                        <div>
-                            <span className="text-4xl">{dados.qtdTarefasFinalizadas}</span>
-                        </div>
-                    </div>
+                        </> 
+                    }
                 </div>
             </div>
         </div>

@@ -1,7 +1,7 @@
 "use client"
 
-import { postModulos, postProjetos, postTiposChamados, updateModulo, updateProject, updateTiposChamados } from "@/app/lib/conexao-firebase";
-import { Modulo, Status, TipoTarefa } from "@/app/lib/tipos-dados";
+import { postStatus, postTiposChamados, updateModulo, updateProject, updateStatus, updateTiposChamados } from "@/app/lib/conexao-firebase";
+import { Status, TipoTarefa } from "@/app/lib/tipos-dados";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { useState } from "react";
@@ -46,7 +46,7 @@ export default function FormNovo({element, tipo}:{element?: TipoTarefa|Status, t
             if (tipo === "Tipo") {
                 sucesso = await postTiposChamados(t);
             } else if (tipo === "Status") {
-                //sucesso = await postStatus(s);
+                sucesso = await postStatus(s);
             }
             
         } else {
@@ -72,7 +72,7 @@ export default function FormNovo({element, tipo}:{element?: TipoTarefa|Status, t
             if (tipo === "Tipo") {
                 sucesso = await updateTiposChamados(t);
             } else if (tipo === "Status") {
-                //sucesso = await updateStatus(s);
+                sucesso = await updateStatus(s);
             }
         }
 

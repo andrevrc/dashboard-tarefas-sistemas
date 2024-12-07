@@ -50,6 +50,12 @@ export async function getTarefasFinalizadasByModulos(idModulo: number) {
     return dados;
 }
 
+export async function getTarefasByStatus(idTipo: number) {
+    let params = "status_id="+idTipo;
+    let dados = await getApiTarefasRedmine(params);
+    return dados;
+}
+
 export async function getTarefasByTipos(idTipo: number) {
     let params = "limit=5&tracker_id="+idTipo;
     let dados = await getApiTarefasRedmine(params);

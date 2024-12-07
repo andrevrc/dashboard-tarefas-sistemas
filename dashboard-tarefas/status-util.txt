@@ -1,0 +1,9 @@
+1 - Aberta
+2 - Em triagem
+3 - Pronta para desenvolvimento
+15 - Bloqueada
+4 - Em desenvolvimento
+8 - Pronta para testar
+13 - Resolvida
+16 - Cancelada
+14 - Fechada
